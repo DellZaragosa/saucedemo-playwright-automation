@@ -19,3 +19,10 @@ test('TC-LOGIN-002: Login fails with wrong password @smoke', async ({ page }) =>
     await expect(page.locator('[data-test="error"]')).toContainText('do not match');
     await expect(page).toHaveURL('https://www.saucedemo.com');
 });
+
+test('TC-LOGIN-014: Direct URL access without login @smoke', async ({ page }) => {
+    await page.goto('https://www.saucedemo.com/inventory.html');
+
+    await expect(page.locator('[data-test="error"]')).toContainText("You can only access '/inventory.html' when you are logged in.");
+    await expect(page).toHaveURL('https://www.saucedemo.com');
+});
