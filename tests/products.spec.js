@@ -17,7 +17,7 @@ test('TC-PROD-001: Product list loads after login @smoke', async ({ page }) => {
     await expect(page.getByRole('button', { name: 'Add to cart' })).toHaveCount(6);
 });
 
-test.only('TC-PROD-004: Sort Price (low to high) @smoke', async ({ page }) => {
+test('TC-PROD-004: Sort Price (low to high) @smoke', async ({ page }) => {
     await page.locator('.product_sort_container').selectOption('lohi');
 
     await expect(page.locator('.inventory_item_price')).toHaveText(['$7.99', '$9.99', '$15.99', '$15.99', '$29.99', '$49.99']);
