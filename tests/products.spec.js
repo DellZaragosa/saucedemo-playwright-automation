@@ -22,3 +22,11 @@ test('TC-PROD-004: Sort Price (low to high) @smoke', async ({ page }) => {
 
     await expect(page.locator('.inventory_item_price')).toHaveText(['$7.99', '$9.99', '$15.99', '$15.99', '$29.99', '$49.99']);
 });
+
+test('TC-PROD-009: Add to cart button changes state @smoke', async ({ page }) => {
+    await page.getByRole('button', { name: 'Add to cart' }).first().click();
+
+    await expect(page.getByRole('button', { name: 'Remove' })).toHaveCount(1);
+    await expect(page.getByRole('button', { name: 'Add to cart' })).toHaveCount(5);
+    await expect(page.locator('.shopping_cart_badge')).toHaveText('1');
+});
