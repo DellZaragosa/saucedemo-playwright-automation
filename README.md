@@ -1,7 +1,7 @@
 # saucedemo-playwright-automation
 UI test automation for SauceDemo using Playwright and JavaScript. Each test maps to a manual case in saucedemo-qa-testing.
 
-**Status:** In progress. Automated so far: TC-LOGIN-001, 002, 014 and 015 (login smoke).
+**Status:** In progress. Automated so far: TC-LOGIN-001, 002, 014, 015 and TC-PROD-001, 004, 009 (smoke).
 
 ## Tech stack
 Playwright · JavaScript · Node.js · GitHub Actions
@@ -32,6 +32,9 @@ npx playwright test --grep @smoke
 | Login fails with wrong password | TC-LOGIN-002 | Automated |
 | Direct URL access without login | TC-LOGIN-014 | Automated |
 | Logout returns to login page | TC-LOGIN-015 | Automated |
+| Product list loads after login | TC-PROD-001 | Automated |
+| Sort Price (low to high) | TC-PROD-004 | Automated |
+| Add to cart button changes state | TC-PROD-009 | Automated |
 
 ## Links
 
