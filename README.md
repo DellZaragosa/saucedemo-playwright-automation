@@ -1,7 +1,7 @@
 # saucedemo-playwright-automation
 UI test automation for SauceDemo using Playwright and JavaScript. Each test maps to a manual case in saucedemo-qa-testing.
 
-**Status:** In progress. 8 of 9 smoke cases automated (login, product list and cart). TC-CHKOUT-001 is next.
+**Status:** In progress. All 9 smoke cases automated (login, product list, cart and checkout).
 
 ## Tech stack
 Playwright · JavaScript · Node.js · GitHub Actions
@@ -36,12 +36,12 @@ npx playwright test --grep @smoke
 | Sort Price (low to high) | TC-PROD-004 | Automated |
 | Add to cart button changes state | TC-PROD-009 | Automated |
 | Added item appears in cart with correct details | TC-CART-001 | Automated |
+| Complete a purchase with valid details | TC-CHKOUT-001 | Automated |
 
 ## Next
 
-- Automate the last smoke case, TC-CHKOUT-001
 - Refactor repeated steps into Page Objects
-- Add more regression tests from the manual suite
+- Add regression tests from the manual suite
 
 ## Links
 
