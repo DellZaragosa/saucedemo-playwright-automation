@@ -1,7 +1,7 @@
 import { test, expect } from './fixture';
 
 test('TC-LOGIN-001: Login with valid credentials @smoke', async ({ loggedInPage: page }) => {
-    await expect(page.locator('.title')).toHaveText('Products');
+    await expect(page.locator('[data-test="title"]')).toHaveText('Products');
 });
 
 test('TC-LOGIN-002: Login fails with wrong password @smoke', async ({ page }) => {
