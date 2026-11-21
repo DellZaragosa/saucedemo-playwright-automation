@@ -16,13 +16,13 @@ npx playwright install
 ## Run all tests:
 
 ```bash
-npx playwright test
+npm test
 ```
 
 ## Run only the smoke tests:
 
 ```bash
-npx playwright test --grep @smoke
+npm run test:smoke
 ```
 
 ## Test cases
