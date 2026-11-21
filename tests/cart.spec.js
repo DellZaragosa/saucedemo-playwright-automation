@@ -1,14 +1,6 @@
-import { test, expect } from '@playwright/test';
+import { test, expect } from './fixture';
 
-test.beforeEach(async ({ page }) => {
-    await page.goto('/');
-    await page.getByPlaceholder('Username').fill('standard_user');
-    await page.getByPlaceholder('Password').fill('secret_sauce');
-    await page.getByRole('button', { name: 'Login' }).click();
-    await expect(page).toHaveURL(/inventory/);
-});
-
-test('TC-CART-001: Added item appears in cart with correct details @smoke', async ({ page }) => {
+test('TC-CART-001: Added item appears in cart with correct details @smoke', async ({ loggedInPage: page }) => {
     const product = page.locator('.inventory_item').first();
     const name = await product.locator('.inventory_item_name').textContent();
     const description = await product.locator('.inventory_item_desc').textContent();

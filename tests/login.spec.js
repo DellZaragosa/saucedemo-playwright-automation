@@ -1,12 +1,6 @@
-import { test, expect } from '@playwright/test';
+import { test, expect } from './fixture';
 
-test('TC-LOGIN-001: Login with valid credentials @smoke', async ({ page }) => {
-    await page.goto('/');
-    await page.getByPlaceholder('Username').fill('standard_user');
-    await page.getByPlaceholder('Password').fill('secret_sauce');
-    await page.getByRole('button', { name: 'Login' }).click();
-
-    await expect(page).toHaveURL(/inventory/);
+test('TC-LOGIN-001: Login with valid credentials @smoke', async ({ loggedInPage: page }) => {
     await expect(page.locator('.title')).toHaveText('Products');
 });
 
@@ -27,13 +21,7 @@ test('TC-LOGIN-014: Direct URL access without login @smoke', async ({ page }) =>
     await expect(page).toHaveURL('/');
 });
 
-test('TC-LOGIN-015: Logout returns to login page @smoke', async ({ page }) => {
-    await page.goto('/');
-    await page.getByPlaceholder('Username').fill('standard_user');
-    await page.getByPlaceholder('Password').fill('secret_sauce');
-    await page.getByRole('button', { name: 'Login' }).click();
-    await expect(page).toHaveURL(/inventory/);
-
+test('TC-LOGIN-015: Logout returns to login page @smoke', async ({ loggedInPage: page }) => {
     await page.locator('#react-burger-menu-btn').click();
     await page.locator('[data-test="logout-sidebar-link"]').click();
     await expect(page.getByRole('button', { name: 'Login' })).toBeVisible();
