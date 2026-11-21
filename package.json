@@ -6,7 +6,8 @@
   "scripts": {
     "test": "playwright test",
     "test:smoke": "playwright test --grep \"@smoke\"",
-    "report": "playwright show-report"
+    "report": "playwright show-report",
+    "debug": "playwright test --debug"
   },
   "repository": {
     "type": "git",
