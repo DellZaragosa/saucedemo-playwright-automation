@@ -1,4 +1,5 @@
 import { test, expect } from './fixture';
+import { checkoutInfo } from '../data/TestData';
 
 test('TC-CHKOUT-001: Complete a purchase with valid details @smoke', async ({ loggedInPage: page }) => {
     await page.getByRole('button', { name: 'Add to cart' }).first().click();
@@ -9,9 +10,9 @@ test('TC-CHKOUT-001: Complete a purchase with valid details @smoke', async ({ lo
     await page.getByRole('button', { name: 'Checkout' }).click();
     await expect(page.locator('[data-test="title"]')).toContainText('Your Information');
 
-    await page.getByPlaceholder('First Name').fill('John');
-    await page.getByPlaceholder('Last Name').fill('Doe');
-    await page.getByPlaceholder('Zip/Postal Code').fill('12345');
+    await page.getByPlaceholder('First Name').fill(checkoutInfo.firstName);
+    await page.getByPlaceholder('Last Name').fill(checkoutInfo.lastName);
+    await page.getByPlaceholder('Zip/Postal Code').fill(checkoutInfo.postalCode);
     await page.getByRole('button', { name: 'Continue' }).click();
 
     await expect(page.locator('[data-test="title"]')).toContainText('Overview');
