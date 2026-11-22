@@ -4,6 +4,7 @@ import { users } from '../data/TestData';
 
 test('TC-LOGIN-001: Login with valid credentials @smoke', async ({ page }) => {
     const loginPage = new LoginPage(page);
+
     await loginPage.goto();
     await loginPage.login(users.standard.username, users.standard.password);
 
@@ -13,8 +14,19 @@ test('TC-LOGIN-001: Login with valid credentials @smoke', async ({ page }) => {
 
 test('TC-LOGIN-002: Login fails with wrong password @smoke', async ({ page }) => {
     const loginPage = new LoginPage(page);
+
     await loginPage.goto();
     await loginPage.login(users.standard.username, 'wrong_pass');
+
+    await expect(page.locator('[data-test="error"]')).toContainText('do not match');
+    await expect(page).toHaveURL('/');
+});
+
+test('TC-LOGIN-003: Login fails with unregistered username', async ({ page }) => {
+    const loginPage = new LoginPage(page);
+
+    await loginPage.goto();
+    await loginPage.login('fake_user', users.standard.password);
 
     await expect(page.locator('[data-test="error"]')).toContainText('do not match');
     await expect(page).toHaveURL('/');
