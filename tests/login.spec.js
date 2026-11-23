@@ -32,6 +32,36 @@ test('TC-LOGIN-003: Login fails with unregistered username', async ({ page }) =>
     await expect(page).toHaveURL('/');
 });
 
+test('TC-LOGIN-004: Login fails with empty username', async ({ page }) => {
+    const loginPage = new LoginPage(page);
+
+    await loginPage.goto();
+    await loginPage.login('', users.standard.password);
+
+    await expect(page.locator('[data-test="error"]')).toContainText('Username is required');
+    await expect(page).toHaveURL('/');
+});
+
+test('TC-LOGIN-005: Login fails with empty password', async ({ page }) => {
+    const loginPage = new LoginPage(page);
+
+    await loginPage.goto();
+    await loginPage.login(users.standard.username, '');
+
+    await expect(page.locator('[data-test="error"]')).toContainText('Password is required');
+    await expect(page).toHaveURL('/');
+});
+
+test('TC-LOGIN-006: Login fails with both fields empty', async ({ page }) => {
+    const loginPage = new LoginPage(page);
+
+    await loginPage.goto();
+    await loginPage.login('', '');
+
+    await expect(page.locator('[data-test="error"]')).toContainText('Username is required');
+    await expect(page).toHaveURL('/');
+});
+
 test('TC-LOGIN-014: Direct URL access without login @smoke', async ({ page }) => {
     await page.goto('/inventory.html');
 
