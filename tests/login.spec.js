@@ -62,6 +62,36 @@ test('TC-LOGIN-006: Login fails with both fields empty', async ({ page }) => {
     await expect(page).toHaveURL('/');
 });
 
+test('TC-LOGIN-007: Locked-out user cannot log in', async ({ page }) => {
+    const loginPage = new LoginPage(page);
+
+    await loginPage.goto();
+    await loginPage.login(users.lockedOut.username, users.lockedOut.password);
+
+    await expect(page.locator('[data-test="error"]')).toContainText('user has been locked out');
+    await expect(page).toHaveURL('/');
+});
+
+test('TC-LOGIN-008: Username is case sensitive', async ({ page }) => {
+    const loginPage = new LoginPage(page);
+
+    await loginPage.goto();
+    await loginPage.login(users.standard.username.toUpperCase(), users.standard.password);
+
+    await expect(page.locator('[data-test="error"]')).toContainText('do not match');
+    await expect(page).toHaveURL('/');
+});
+
+test('TC-LOGIN-009: Password is case sensitive', async ({ page }) => {
+    const loginPage = new LoginPage(page);
+
+    await loginPage.goto();
+    await loginPage.login(users.standard.username, users.standard.password.toUpperCase());
+
+    await expect(page.locator('[data-test="error"]')).toContainText('do not match');
+    await expect(page).toHaveURL('/');
+});
+
 test('TC-LOGIN-014: Direct URL access without login @smoke', async ({ page }) => {
     await page.goto('/inventory.html');
 
