@@ -34,3 +34,42 @@ test('TC-CHKOUT-002: Checkout fails with empty first name', async ({ loggedInPag
     await expect(checkoutPage.errorMessage).toContainText('First Name is required');
     await expect(page).toHaveURL(/checkout-step-one/);
 });
+
+test('TC-CHKOUT-003: Checkout fails with empty last name', async ({ loggedInPage: page }) => {
+    const checkoutPage = new CheckoutPage(page);
+
+    await page.getByRole('button', { name: 'Add to cart' }).first().click();
+    await page.locator('[data-test="shopping-cart-link"]').click();
+    await page.getByRole('button', { name: 'Checkout' }).click();
+
+    await checkoutPage.submitInformation(checkoutInfo.firstName, '', checkoutInfo.postalCode);
+
+    await expect(checkoutPage.errorMessage).toContainText('Last Name is required');
+    await expect(page).toHaveURL(/checkout-step-one/);
+});
+
+test('TC-CHKOUT-004: Checkout fails with empty postal code', async ({ loggedInPage: page }) => {
+    const checkoutPage = new CheckoutPage(page);
+
+    await page.getByRole('button', { name: 'Add to cart' }).first().click();
+    await page.locator('[data-test="shopping-cart-link"]').click();
+    await page.getByRole('button', { name: 'Checkout' }).click();
+
+    await checkoutPage.submitInformation(checkoutInfo.firstName, checkoutInfo.lastName, '');
+
+    await expect(checkoutPage.errorMessage).toContainText('Postal Code is required');
+    await expect(page).toHaveURL(/checkout-step-one/);
+});
+
+test('TC-CHKOUT-005: Checkout fails with all fields empty', async ({ loggedInPage: page }) => {
+    const checkoutPage = new CheckoutPage(page);
+
+    await page.getByRole('button', { name: 'Add to cart' }).first().click();
+    await page.locator('[data-test="shopping-cart-link"]').click();
+    await page.getByRole('button', { name: 'Checkout' }).click();
+
+    await checkoutPage.submitInformation('', '', '');
+
+    await expect(checkoutPage.errorMessage).toContainText('First Name is required');
+    await expect(page).toHaveURL(/checkout-step-one/);
+});
