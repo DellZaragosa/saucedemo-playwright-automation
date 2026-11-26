@@ -1,5 +1,5 @@
 import { test, expect } from './fixture';
-import { CheckoutPage } from '../pages/CheckOutPage';
+import { CheckoutPage } from '../pages/CheckoutPage';
 import { checkoutInfo } from '../data/TestData';
 
 test('TC-CHKOUT-001: Complete a purchase with valid details @smoke', async ({ loggedInPage: page }) => {
