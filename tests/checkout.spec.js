@@ -22,12 +22,8 @@ test('TC-CHKOUT-001: Complete a purchase with valid details @smoke', async ({ lo
     await expect(page.locator('[data-test="complete-header"]')).toHaveText('Thank you for your order!');
 });
 
-test('TC-CHKOUT-002: Checkout fails with empty first name', async ({ loggedInPage: page }) => {
+test('TC-CHKOUT-002: Checkout fails with empty first name', async ({ checkoutInfoPage: page }) => {
     const checkoutPage = new CheckoutPage(page);
-
-    await page.getByRole('button', { name: 'Add to cart' }).first().click();
-    await page.locator('[data-test="shopping-cart-link"]').click();
-    await page.getByRole('button', { name: 'Checkout' }).click();
 
     await checkoutPage.submitInformation('', checkoutInfo.lastName, checkoutInfo.postalCode);
 
@@ -35,12 +31,8 @@ test('TC-CHKOUT-002: Checkout fails with empty first name', async ({ loggedInPag
     await expect(page).toHaveURL(/checkout-step-one/);
 });
 
-test('TC-CHKOUT-003: Checkout fails with empty last name', async ({ loggedInPage: page }) => {
+test('TC-CHKOUT-003: Checkout fails with empty last name', async ({ checkoutInfoPage: page }) => {
     const checkoutPage = new CheckoutPage(page);
-
-    await page.getByRole('button', { name: 'Add to cart' }).first().click();
-    await page.locator('[data-test="shopping-cart-link"]').click();
-    await page.getByRole('button', { name: 'Checkout' }).click();
 
     await checkoutPage.submitInformation(checkoutInfo.firstName, '', checkoutInfo.postalCode);
 
@@ -48,12 +40,8 @@ test('TC-CHKOUT-003: Checkout fails with empty last name', async ({ loggedInPage
     await expect(page).toHaveURL(/checkout-step-one/);
 });
 
-test('TC-CHKOUT-004: Checkout fails with empty postal code', async ({ loggedInPage: page }) => {
+test('TC-CHKOUT-004: Checkout fails with empty postal code', async ({ checkoutInfoPage: page }) => {
     const checkoutPage = new CheckoutPage(page);
-
-    await page.getByRole('button', { name: 'Add to cart' }).first().click();
-    await page.locator('[data-test="shopping-cart-link"]').click();
-    await page.getByRole('button', { name: 'Checkout' }).click();
 
     await checkoutPage.submitInformation(checkoutInfo.firstName, checkoutInfo.lastName, '');
 
@@ -61,12 +49,8 @@ test('TC-CHKOUT-004: Checkout fails with empty postal code', async ({ loggedInPa
     await expect(page).toHaveURL(/checkout-step-one/);
 });
 
-test('TC-CHKOUT-005: Checkout fails with all fields empty', async ({ loggedInPage: page }) => {
+test('TC-CHKOUT-005: Checkout fails with all fields empty', async ({ checkoutInfoPage: page }) => {
     const checkoutPage = new CheckoutPage(page);
-
-    await page.getByRole('button', { name: 'Add to cart' }).first().click();
-    await page.locator('[data-test="shopping-cart-link"]').click();
-    await page.getByRole('button', { name: 'Checkout' }).click();
 
     await checkoutPage.submitInformation('', '', '');
 
