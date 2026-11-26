@@ -1,7 +1,7 @@
 # saucedemo-playwright-automation
 UI test automation for SauceDemo using Playwright and JavaScript. Each test maps to a manual case in saucedemo-qa-testing.
 
-**Status:** In progress. All 9 smoke cases automated (login, product list, cart and checkout).
+**Status:** In progress. All 9 smoke cases and the full Login module (TC-LOGIN-001 to 015) are automated.
 
 ## Tech stack
 Playwright · JavaScript · Node.js · GitHub Actions
@@ -25,23 +25,30 @@ npm test
 npm run test:smoke
 ```
 
-## Test cases
-| Test | Manual case | Status |
-|---|---|---|
-| Login with valid credentials | TC-LOGIN-001 | Automated |
-| Login fails with wrong password | TC-LOGIN-002 | Automated |
-| Direct URL access without login | TC-LOGIN-014 | Automated |
-| Logout returns to login page | TC-LOGIN-015 | Automated |
-| Product list loads after login | TC-PROD-001 | Automated |
-| Sort Price (low to high) | TC-PROD-004 | Automated |
-| Add to cart button changes state | TC-PROD-009 | Automated |
-| Added item appears in cart with correct details | TC-CART-001 | Automated |
-| Complete a purchase with valid details | TC-CHKOUT-001 | Automated |
+## Project structure
+
+- `tests/` – test files, one per module, plus shared fixtures
+- `pages/` – page objects (LoginPage, CheckoutPage)
+- `data/` – test data such as users and checkout details
+
+## Coverage
+
+| Module | Manual cases | Automated | Smoke |
+|---|---|---|---|
+| Login | 15 | 15 | 4 |
+| Products | 10 | 3 | 3 |
+| Cart | 12 | 1 | 1 |
+| Checkout | 14 | 1 | 1 |
+| Navigation | 5 | 0 | 0 |
+| **Total** | **56** | **20** | **9** |
+
+Each test title starts with its manual case ID (for example `TC-LOGIN-003`), so tests can be matched to the cases in [saucedemo-qa-testing](https://github.com/DellZaragosa/saucedemo-qa-testing).
 
 ## Next
 
-- Refactor repeated steps into Page Objects
-- Add regression tests from the manual suite
+- Checkout validation cases (TC-CHKOUT-002 to 005)
+- Cart and product list regression cases
+- Page objects for the checkout and inventory pages
 
 ## Links
 
