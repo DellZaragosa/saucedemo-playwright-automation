@@ -1,4 +1,6 @@
+![Playwright Tests](https://github.com/DellZaragosa/saucedemo-playwright-automation/actions/workflows/playwright.yml/badge.svg)
 # saucedemo-playwright-automation
+
 UI test automation for SauceDemo using Playwright and JavaScript. Each test maps to a manual case in saucedemo-qa-testing.
 
 **Status:** In progress. All 9 smoke cases and the full Login module (TC-LOGIN-001 to 015) are automated.
