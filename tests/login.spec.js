@@ -9,7 +9,7 @@ test('TC-LOGIN-001: Login with valid credentials @smoke', async ({ page }) => {
     await loginPage.login(users.standard.username, users.standard.password);
 
     await expect(page).toHaveURL(/inventory/);
-    await expect(page.locator('[data-test="title"]')).toHaveText('Productz');
+    await expect(page.locator('[data-test="title"]')).toHaveText('Products');
 });
 
 test('TC-LOGIN-002: Login fails with wrong password @smoke', async ({ page }) => {
