@@ -65,6 +65,38 @@ test('TC-CHKOUT-006: Cancel on information page returns to cart', async ({ check
     await expect(page.locator('[data-test="inventory-item"]')).toHaveCount(1);
 });
 
+test('TC-CHKOUT-010: Cancel on overview page', async ({ checkoutOverviewPage: page }) => {
+    await page.getByRole('button', { name: 'Cancel' }).click();
+
+    await expect(page).toHaveURL(/inventory/);
+    await expect(page.locator('[data-test="shopping-cart-badge"]')).toHaveText('1');
+
+    // Open the cart to confirm the item is still there.
+    await page.locator('[data-test="shopping-cart-link"]').click();
+
+    await expect(page.locator('[data-test="inventory-item"]')).toHaveCount(1);
+});
+
+test('TC-CHKOUT-011: Cart is emptied after order completion', async ({ orderCompletePage: page }) => {
+    await expect(page.locator('[data-test="shopping-cart-badge"]')).toHaveCount(0);
+
+    await page.locator('[data-test="shopping-cart-link"]').click();
+
+    await expect(page.locator('[data-test="inventory-item"]')).toHaveCount(0);
+});
+
+test('TC-CHKOUT-012: Back Home returns to the Products page', async ({ orderCompletePage: page }) => {
+    await page.getByRole('button', { name: 'Back Home' }).click();
+
+    await expect(page).toHaveURL(/inventory/);
+    await expect(page.locator('[data-test="shopping-cart-badge"]')).toHaveCount(0);
+    
+    // Open the cart to confirm it is empty.
+    await page.locator('[data-test="shopping-cart-link"]').click();
+
+    await expect(page.locator('[data-test="inventory-item"]')).toHaveCount(0);
+});
+
 test('TC-CHKOUT-013: Unusual characters in information fields', async ({ checkoutInfoPage: page }) => {
     test.fail(true, 'BUG-005: Name fields accept digits and symbols');
     
