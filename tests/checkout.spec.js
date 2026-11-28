@@ -57,3 +57,33 @@ test('TC-CHKOUT-005: Checkout fails with all fields empty', async ({ checkoutInf
     await expect(checkoutPage.errorMessage).toContainText('First Name is required');
     await expect(page).toHaveURL(/checkout-step-one/);
 });
+
+test('TC-CHKOUT-006: Cancel on information page returns to cart', async ({ checkoutInfoPage: page }) => {
+    await page.getByRole('button', { name: 'Cancel' }).click();
+
+    await expect(page).toHaveURL(/cart/);
+    await expect(page.locator('[data-test="inventory-item"]')).toHaveCount(1);
+});
+
+test('TC-CHKOUT-013: Unusual characters in information fields', async ({ checkoutInfoPage: page }) => {
+    test.fail(true, 'BUG-005: Name fields accept digits and symbols');
+    
+    const checkoutPage = new CheckoutPage(page);
+
+    await checkoutPage.submitInformation('12345', '@#$%', 'ABCDE');
+
+    // Correct behavior: Names with digits and symbols are rejected.
+    await expect(checkoutPage.errorMessage).toBeVisible();
+    await expect(page).toHaveURL(/checkout-step-one/);
+});
+
+test('TC-CHKOUT-014: Very long input in information fields', async ({ checkoutInfoPage: page }) => {
+    const checkoutPage = new CheckoutPage(page);
+    const longText = 'a'.repeat(200);
+
+    await checkoutPage.submitInformation(longText, longText, longText);
+
+    //Behavior recorded: Long input is accepted and no crash occurs. The Checkout Overview opens.
+    await expect(page).toHaveURL(/checkout-step-two/);
+    await expect(page.locator('[data-test="title"]')).toContainText('Overview');
+});
